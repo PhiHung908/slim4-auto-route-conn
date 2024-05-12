@@ -1,0 +1,37 @@
+{
+	"name": "slim4-mod/auto-route-conn",
+    "description": "Slim4-Mod bổ sung auto-route và connect-db - sử dụng như MVC với Twig view - tích hợp SlimAsset",
+	"keywords": ["slim","slim route","slim connect","slim conn db","slim4 route","slim4 conn"],
+	"homepage": "https://github.com/PhiHung908",
+    "support": {
+        "issues": "https://github.com/PhiHung908/slim4-auto-route-conn/issues",
+        "source": "https://github.com/PhiHung908/slim4-auto-route-conn.git"
+    },
+	"type": "slim4-mod",
+	"license": "MIT",
+	"authors": [
+        {
+            "name": "Phi Hùng",
+            "email": "vmkeyb908@gmail.com"
+        }
+    ],
+	"minimum-stability": "dev",
+    "require": {
+        "slim/slim": "4.*",
+        "monolog/monolog": "^3.6",
+        "slim/psr7": "^1.6",
+        "slim/csrf": "^1.4",
+        "doctrine/orm": "^3.1",
+        "symfony/cache": "^7.0",
+        "php-di/slim-bridge": "^3.4",
+		"slim/twig-view": "3.x-dev",
+		"glazilla/twig-asset": "dev-master",
+		"mnapoli/silly": "dev-master"
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "src/",
+			"Slim4mod\\": "vendor/slim4-mod/"
+        }
+    }
+}

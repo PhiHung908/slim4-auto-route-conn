@@ -1,0 +1,44 @@
+<?php
+
+use App\Application\Actions\Product;
+use App\Domain\Product\Repository;
+
+use Symfony\Component\Console\Output\OutputInterface;
+
+require __DIR__ . '/src/bootstrap.php';
+
+$app = new Silly\Application();
+
+// Silly will use PHP-DI for dependency injection based on type-hints
+$app->useContainer($container, $injectWithTypeHint = true);
+
+// This command is implemented using a closure. We can still benefit from dependency
+// injection in the parameters of the closure because Silly + PHP-DI is awesome.
+$app->command('product-list', function (OutputInterface $output, Repository $repository) {
+    $output->writeln('<comment>Here are the data in the repository:</comment>');
+
+    $data = $repository->emRepository()->findAll(); //$repository->findAll();
+
+	foreach ($data as $row) {
+        $output->writeln(sprintf(
+            'Id #%d: <info>%s</info>',
+            $row->getId(),
+            $row->getName()
+        ));
+    }
+});
+
+
+$app->command('new-model [newModuleName]', function ($newModuleName, OutputInterface $output) {
+    $output->writeln('<comment>Here are autoGen new-model:</comment>');
+	$func = require (__DIR__ .'/src/Base/AutoGen.php'); 
+	$exitcode = $func($newModuleName);
+	if ($exitcode == 0) {
+	  $output->writeln(
+		  "\nSau khi tạo bảng <comment>$newModuleName</comment> có tối thiểu 2 cột 'id' và 'name', bạn có thể chạy lệnh như dưới để xem nội dung:\n
+><info>console product-list</info>\n"
+		);
+	}
+});
+
+$app->run();
